@@ -1,58 +1,59 @@
-# code-fights-solutions
+A cryptarithm is a mathematical puzzle for which the goal is to find the correspondence between letters and digits, such that the given arithmetic equation consisting of letters holds true when the letters are converted to digits.
 
-Sudoku is a number-placement puzzle. 
-The objective is to fill a 9 × 9 grid with numbers in such a way 
-that each column, each row, and each of the nine 
-3 × 3 sub-grids that compose the grid all contain all 
-of the numbers from 1 to 9 one time.
+You have an array of strings crypt, the cryptarithm, and an an array containing the mapping of letters and digits, solution. The array crypt will contain three non-empty strings that follow the structure: [word1, word2, word3], which should be interpreted as the word1 + word2 = word3 cryptarithm.
 
-Implement an algorithm that will check whether the given grid
-of numbers represents a valid Sudoku puzzle according to 
-the layout rules described above. Note that the puzzle represented 
-by grid does not have to be solvable.
+If crypt, when it is decoded by replacing all of the letters in the cryptarithm with digits using the mapping in solution, becomes a valid arithmetic equation containing no numbers with leading zeroes, the answer is true. If it does not become a valid arithmetic solution, the answer is false.
 
 Example
 
-For
+For crypt = ["SEND", "MORE", "MONEY"] and
 
-grid = [['.', '.', '.', '1', '4', '.', '.', '2', '.'],
-        ['.', '.', '6', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '1', '.', '.', '.', '.', '.', '.'],
-        ['.', '6', '7', '.', '.', '.', '.', '.', '9'],
-        ['.', '.', '.', '.', '.', '.', '8', '1', '.'],
-        ['.', '3', '.', '.', '.', '.', '.', '.', '6'],
-        ['.', '.', '.', '.', '.', '7', '.', '.', '.'],
-        ['.', '.', '.', '5', '.', '.', '.', '7', '.']]
-        
+solution = [['O', '0'],
+            ['M', '1'],
+            ['Y', '2'],
+            ['E', '5'],
+            ['N', '6'],
+            ['D', '7'],
+            ['R', '8'],
+            ['S', '9']]
 the output should be
-sudoku2(grid) = true;
+isCryptSolution(crypt, solution) = true.
 
-For
+When you decrypt "SEND", "MORE", and "MONEY" using the mapping given in crypt, you get 9567 + 1085 = 10652 which is correct and a valid arithmetic equation.
 
-grid = [['.', '.', '.', '.', '2', '.', '.', '9', '.'],
-        ['.', '.', '.', '.', '6', '.', '.', '.', '.'],
-        ['7', '1', '.', '.', '7', '5', '.', '.', '.'],
-        ['.', '7', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '8', '3', '.', '.', '.'],
-        ['.', '.', '8', '.', '.', '7', '.', '6', '.'],
-        ['.', '.', '.', '.', '.', '2', '.', '.', '.'],
-        ['.', '1', '.', '2', '.', '.', '.', '.', '.'],
-        ['.', '2', '.', '.', '3', '.', '.', '.', '.']]
+For crypt = ["TEN", "TWO", "ONE"] and
 
+solution = [['O', '1'],
+            ['T', '0'],
+            ['W', '9'],
+            ['E', '5'],
+            ['N', '4']]
 the output should be
-sudoku2(grid) = false.
+isCryptSolution(crypt, solution) = false.
 
-The given grid is not correct because there are two 1s in the second column. Each column, each row, and each 3 × 3 subgrid can only contain the numbers 1 through 9 one time.
+Even though 054 + 091 = 145, 054 and 091both contain leading zeroes, meaning that this is not a valid solution.
 
 Input/Output
 
-[execution time limit] 3 seconds (java)
+[execution time limit] 4 seconds (go)
+[input] array.string crypt
+An array of three non-empty strings containing only uppercase English letters.
 
-[input] array.array.char grid
+Guaranteed constraints:
+crypt.length = 3,
+1 ≤ crypt[i].length ≤ 14.
 
-A 9 × 9 array of characters, in which each character is either a digit from '1' to '9' or a period '.'.
+[input] array.array.char solution
+An array consisting of pairs of characters that represent the correspondence between letters and numbers in the cryptarithm. The first character in the pair is an uppercase English letter, and the second one is a digit in the range from 0 to 9.
+
+Guaranteed constraints:
+solution[i].length = 2,
+'A' ≤ solution[i][0] ≤ 'Z',
+'0' ≤ solution[i][1] ≤ '9',
+solution[i][0] ≠ solution[j][0], i ≠ j,
+solution[i][1] ≠ solution[j][1], i ≠ j.
+
+It is guaranteed that solution only contains entries for the letters present in crypt and that different letters have different values.
 
 [output] boolean
-
-Return true if grid represents a valid Sudoku puzzle, otherwise return false.
+Return true if the solution represents the correct solution to the cryptarithm crypt, otherwise return false.
